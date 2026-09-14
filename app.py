@@ -51,6 +51,11 @@ PRIORITY_WORDS = {
     "help": 1,
 }
 
+UNAVAILABILITY_PATTERN = re.compile(
+    r"can't|cannot|unavailable|cancel(?:led|ed)?|broken|breakdown|car trouble|can't make it",
+    re.I,
+)
+
 
 def _score(message: str) -> int:
     lowered = message.lower()
@@ -76,7 +81,7 @@ def extract_volunteer_signals(messages_json: str) -> str:
             {
                 "label": _name(message, index),
                 "priority": _score(message),
-                "mentions_unavailability": bool(re.search(r"can't|cannot|unavailable|cancel", message, re.I)),
+                "mentions_unavailability": bool(UNAVAILABILITY_PATTERN.search(message)),
                 "summary": message[:220],
             }
         )
@@ -116,7 +121,7 @@ def deterministic_plan(payload: RelayRequest) -> dict[str, Any]:
                 "name": _name(message, index),
                 "message": message.strip(),
                 "score": _score(message),
-                "unavailable": bool(re.search(r"can't|cannot|unavailable|cancel", message, re.I)),
+                "unavailable": bool(UNAVAILABILITY_PATTERN.search(message)),
             }
         )
     entries.sort(key=lambda item: item["score"], reverse=True)
