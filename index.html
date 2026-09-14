@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#eeebe2" />
+    <title>CivicRelay — human-approved coordination</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="grain"></div>
+    <main>
+      <header class="masthead">
+        <a class="wordmark" href="#top">CIVIC<span>RELAY</span></a>
+        <p class="status"><i></i> CONSENT-FIRST AGENT / v0.1</p>
+      </header>
+
+      <section class="hero" id="top">
+        <div>
+          <p class="eyebrow">GOOD NEIGHBOR AGENT</p>
+          <h1>Turn the noisy<br /><em>“can anyone help?”</em><br />into a clear next move.</h1>
+        </div>
+        <p class="lede">CivicRelay reads volunteer updates, surfaces coverage risks, and prepares a small action queue. It drafts. A human decides and sends.</p>
+      </section>
+
+      <section class="workspace" aria-label="CivicRelay planner">
+        <form id="relay-form" class="intake">
+          <div class="form-heading"><span>01</span><h2>Incoming signal</h2><button type="button" id="load-demo" class="text-button">Load field demo ↗</button></div>
+          <label>Organization<input id="organization" required maxlength="120" value="Harbor Mutual Aid" /></label>
+          <label>Today’s goal<input id="goal" required maxlength="500" value="Keep the evening food pickup covered and communicate changes clearly." /></label>
+          <label>Volunteer updates <small>One update per line</small><textarea id="messages" required rows="9">Maya — I can cover the 5pm food pickup, but I will need a ride back after 7.
+Luis: urgent — my car has broken down, so I can't bring the pantry kits tonight.
+Nora here. I can drive an extra route if we confirm before 3pm.
+Sam: I have 30 extra hygiene kits in storage and can drop them off this afternoon.</textarea></label>
+          <button class="relay-button" type="submit"><span>Build the review queue</span><b>→</b></button>
+          <p class="privacy-note">No message leaves this page. CivicRelay returns drafts for review only.</p>
+        </form>
+
+        <section class="output" aria-live="polite">
+          <div class="form-heading"><span>02</span><h2>Human review queue</h2><p id="reviewed" class="mini-stat">4 UPDATES</p></div>
+          <div id="summary" class="summary-card">
+            <p class="card-kicker">SITUATION READ</p>
+            <h3>One transport gap,<br />two ready backups.</h3>
+            <div class="signal-row"><span>Coverage risk</span><b>01</b></div>
+            <div class="signal-row"><span>Strongest theme</span><b>AVAILABILITY</b></div>
+          </div>
+          <div id="actions" class="actions"></div>
+          <aside class="guardrail"><span>HUMAN GATE</span><p>Recommendations are traceable to source updates. Sending, scheduling, and commitments stay with the coordinator.</p></aside>
+        </section>
+      </section>
+
+      <footer><span>BUILT FOR THE MOMENT BEFORE A GOOD DEED FALLS THROUGH.</span><span>STRANDS AGENT PATH • REVIEWABLE BY DESIGN</span></footer>
+    </main>
+    <template id="action-template"><article class="action-card"><div class="action-top"><span class="priority"></span><button class="copy-draft" type="button">COPY DRAFT</button></div><h3></h3><p class="detail"></p><details><summary>View human-approved outreach draft</summary><p class="draft"></p></details></article></template>
+    <script src="./app.js"></script>
+  </body>
+</html>
